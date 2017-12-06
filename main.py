@@ -28,24 +28,26 @@ def index():
 @app.route('/new-post', methods=['POST', 'GET'])
 def new_post():
 
+    post_body = ''
+    post_title = ''
     title_error = ''
     body_error = ''
 
     if request.method == 'POST':
         post_title = request.form['post_title']
         post_body = request.form['post_body']
-        new = Blog(post_title, post_body)
-        db.session.add(new)
-        db.session.commit()
         if post_title == '':
             title_error = 'Please enter a Post Title.'
-        elif body_error == '':
+        elif post_body == '':
             body_error = 'Please enter some content.'
         else:
+            new = Blog(post_title, post_body)
+            db.session.add(new)
+            db.session.commit()
             return redirect('/blog')
 
     return render_template('new-post.html', title="New Post", title_error=title_error,
-                body_error=body_error)
+                body_error=body_error, post_title=post_title, post_body=post_body)
 
 if __name__ == '__main__':
     app.run()
