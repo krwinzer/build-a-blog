@@ -44,7 +44,8 @@ def new_post():
             new = Blog(post_title, post_body)
             db.session.add(new)
             db.session.commit()
-            return redirect('/blog')
+
+            return redirect('/single-post')
 
     return render_template('new-post.html', title="New Post", title_error=title_error,
                 body_error=body_error, post_title=post_title, post_body=post_body)
@@ -52,8 +53,8 @@ def new_post():
 @app.route('/single-post')
 def single_post():
 
-    post_title = request.args.get('post-title')
-    post_body = request.args.get('post-body')
+    post_title = request.args.get('post_title')
+    post_body = request.args.get('post_body')
 
     return render_template('single-post.html', title="Single Post", post_title=post_title, post_body=post_body)
 
