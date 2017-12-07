@@ -49,16 +49,13 @@ def new_post():
     return render_template('new-post.html', title="New Post", title_error=title_error,
                 body_error=body_error, post_title=post_title, post_body=post_body)
 
-@app.route('/single-post', methods=['POST', 'GET'])
+@app.route('/single-post')
 def single_post():
 
-    return "Hello there!"
+    post_title = request.args.get('post-title')
+    post_body = request.args.get('post-body')
 
-
-
-
-
-
+    return render_template('single-post.html', title="Single Post", post_title=post_title, post_body=post_body)
 
 if __name__ == '__main__':
     app.run()
