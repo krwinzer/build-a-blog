@@ -45,7 +45,7 @@ def new_post():
             db.session.add(new)
             db.session.commit()
 
-            return redirect('/single-post')
+            return redirect('/single-post?id={0}'.format(new.id))
 
     return render_template('new-post.html', title="New Post", title_error=title_error,
                 body_error=body_error, post_title=post_title, post_body=post_body)
