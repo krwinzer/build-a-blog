@@ -45,7 +45,7 @@ def new_post():
             db.session.add(new)
             db.session.commit()
 
-            return redirect('/single-post?id={0}'.format(new.id))
+            return redirect('/single-post?id={0}&post_title={1}&post_body={2}'.format(new.id, new.post_title, new.post_body))
 
     return render_template('new-post.html', title="New Post", title_error=title_error,
                 body_error=body_error, post_title=post_title, post_body=post_body)
@@ -53,7 +53,12 @@ def new_post():
 @app.route('/single-post')
 def single_post():
 
-    id = Blog.query.get(id)
+    post_title = request.args.get('post_title')
+    post_body = request.args.get('post_body')
+
+    id = Blog.query.get('id')
+    # post_title = Blog.query.get('post_title')
+    # post_body = Blog.query.get('post_body')
 
     return render_template('single-post.html', title="Single Post", post_title=post_title, post_body=post_body)
 
